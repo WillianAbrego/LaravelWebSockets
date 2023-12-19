@@ -12,8 +12,19 @@ msgerForm.addEventListener("submit", (event) => {
     const msgText = msgerInput.value;
 
     if (!msgText) return;
+    axios
+        .post("/message/sent", {
+            message: msgText,
+            chat_id: 2,
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((error) => {
+            console.log("a ocurrido un error");
+            console.log(error);
+        });
 
-    /*codigo envio */
     msgerInput.value = "";
 });
 
