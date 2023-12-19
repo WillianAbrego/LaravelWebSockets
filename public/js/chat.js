@@ -5,10 +5,12 @@ const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const chatWith = get(".chatWith");
 const typing = get(".typing");
 const chatStatus = get(".chatStatus");
+const chatId = window.location.pathname.substr(6);
 
+console.log(msgerForm);
 msgerForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
+    console.log(event);
     const msgText = msgerInput.value;
 
     if (!msgText) return;
@@ -18,7 +20,16 @@ msgerForm.addEventListener("submit", (event) => {
             chat_id: 2,
         })
         .then((res) => {
+            let data = res.data;
+            // console.log("first");
             console.log(res);
+            // appendMessage(
+            //     data.user.name,
+            //     PERSON_IMG,
+            //     "right",
+            //     data.content,
+            //     formatDate(new Date(data.created_at))
+            // );
         })
         .catch((error) => {
             console.log("a ocurrido un error");
@@ -48,6 +59,12 @@ function appendMessage(name, img, side, text, date) {
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     msgerChat.scrollTop += 500;
 }
+
+//Echo
+
+// Echo.join("chat.2").listen("MessageSent", (e) => {
+//     console.log(e);
+// });
 
 // Utils
 function get(selector, root = document) {

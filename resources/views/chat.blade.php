@@ -3,14 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
+
   <title>Simple Chat </title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script @vite(['resources/js/bootstrap.js', 'resources/js/app.js', 'public/js/chat.js'])></script>
+
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/css/chat.css">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -30,17 +31,18 @@
 
     <div class="msger-chat"></div>
 
-    <form method="POST" {{ route('chat.sent') }} class="msger-inputarea">
+    <form method="POST" action=" {{ route('message.sent') }}" class="msger-inputarea">
+      @csrf
+
       <input type="text" class="msger-input" oninput="sendTypingEvent()" placeholder="Enter your message...">
       <button type="submit" class="msger-send-btn">Send</button>
-      {{-- <input type="hidden" name="chatId" value="{{ $chat->id }}"> --}}
+
     </form>
 
   </section>
 
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
-  <script src="/js/app.js"></script>
-  <script src="/js/chat.js"></script>
+
 
 </body>
 

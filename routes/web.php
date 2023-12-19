@@ -39,4 +39,4 @@ Route::get('chat/{user}/get_users', [ChatController::class, 'get_users'])->name(
 //Route::get('chat', [ChatController::class, 'show'])->name('chat.show');
 Route::get('chat/{chat}/get_messages', [ChatController::class, 'get_messages'])->name('chat.get_messages');
 
-Route::post('message/sent', [MessageController::class, 'sent'])->name('chat.sent');
+Route::post('message/sent', [MessageController::class, 'sent'])->name('message.sent');
