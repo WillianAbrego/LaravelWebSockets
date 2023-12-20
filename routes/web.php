@@ -32,6 +32,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+Route::get('auth/user', function () {
+    if (auth()->check()) {
+        return response()->json([
+            'authUser' => auth()->user()
+        ]);
+    }
+});
 
 Route::get('chat/{chat}', [ChatController::class, 'show'])->name('chat.show');
 Route::get('chat/with/{user}', [ChatController::class, 'chat_with'])->name('chat.with');

@@ -6,6 +6,24 @@ const chatWith = get(".chatWith");
 const typing = get(".typing");
 const chatStatus = get(".chatStatus");
 const chatId = window.location.pathname.substr(6);
+let authUser;
+
+window.onload = async function () {
+    await this.axios
+        .get("/auth/user")
+        .then((res) => {
+            authUser = res.data.authUser;
+        })
+        .then(() => {
+            axios.get(`/chat/${chatId}/get_users`).then((res) => {
+                let results = res.data.users.filter(
+                    (user) => user.id != authUser.id
+                );
+
+                if (results.length > 0) chatWith.innerHTML = results[0].name;
+            });
+        });
+};
 
 msgerForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -40,6 +58,10 @@ msgerForm.addEventListener("submit", (event) => {
 Echo.channel("presence-chat.2").listen("MessageSent", (e) => {
     console.log("Evento recibido:", e);
 });
+
+// Echo.channel("private-chat.2").listen("MessageSent", (e) => {
+//     console.log("Evento recibido:", e);
+// });
 
 function appendMessage(name, img, side, text, date) {
     //   Simple solution for small apps
