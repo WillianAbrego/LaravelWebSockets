@@ -25,7 +25,6 @@ window.onload = async function () {
         })
         .then(() => {
             axios.get(`/chat/${chatId}/get_messages`).then((res) => {
-                console.log(res);
                 appendMessages(res.data.messages);
             });
         });
@@ -76,13 +75,15 @@ function appendMessages(messages) {
     });
 }
 
-Echo.channel("presence-chat.2").listen("MessageSent", (e) => {
-    console.log("Evento recibido:", e);
+Echo.channel(`presence-chat.${chatId}`).listen("MessageSent", (e) => {
+    appendMessage(
+        e.message.user.name,
+        PERSON_IMG,
+        "left",
+        e.message.content,
+        formatDate(new Date(e.message.created_at))
+    );
 });
-
-// Echo.channel("private-chat.2").listen("MessageSent", (e) => {
-//     console.log("Evento recibido:", e);
-// });
 
 function appendMessage(name, img, side, text, date) {
     //   Simple solution for small apps
