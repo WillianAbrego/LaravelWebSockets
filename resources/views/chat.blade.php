@@ -34,7 +34,7 @@
     <form method="POST" action=" {{ route('message.sent') }}" class="msger-inputarea">
       @csrf
 
-      <input type="text" class="msger-input" oninput="sendTypingEvent()" placeholder="Enter your message...">
+      <input type="text" class="msger-input" placeholder="Enter your message...">
       <button type="submit" class="msger-send-btn">Send</button>
 
     </form>
@@ -42,7 +42,6 @@
   </section>
 
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
-
 
 </body>
 

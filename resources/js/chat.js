@@ -40,7 +40,7 @@ window.onload = async function () {
                     );
                 })
                 .here((users) => {
-                    console.log(authUser.id);
+                    // console.log(authUser.id);
                     let result = users.filter((user) => user.id != authUser.id);
 
                     if (result.length > 0)
@@ -53,9 +53,25 @@ window.onload = async function () {
                 .leaving((user) => {
                     if (user.id != authUser.id)
                         chatStatus.className = "chatStatus offline";
+                })
+                .listenForWhisper("typing", (e) => {
+                    if (e > 0) {
+                        typing.style.display = "";
+                        setTimeout(() => {
+                            typing.style.display = "none";
+                        }, 3000);
+                    }
                 });
         });
 };
+
+msgerInput.addEventListener("keypress", (e) => {
+    Echo.join(`chat.${chatId}`).whisper("typing", msgerInput.value.length);
+});
+// function sendTypingEvent() {
+//     console.log();
+//     // Echo.join(`chat.${chatId}`).whisper("typing", msgerInput.value.length);
+// }
 
 msgerForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -122,8 +138,6 @@ function appendMessage(name, img, side, text, date) {
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     scrollToBottom();
 }
-
-//Echo
 
 // Utils
 function get(selector, root = document) {
