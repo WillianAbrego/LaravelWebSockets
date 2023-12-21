@@ -45,12 +45,11 @@ class ChatController extends Controller
         ]);
     }
 
-    public function get_users(Chat $chat)
+    public function get_users(Chat $chat, $user)
     {
 
-        $users = User::all();
+        $users = $chat->find($user)->users;
 
-        //dd($users);
 
         return response()->json([
             'users' => $users
