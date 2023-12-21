@@ -7,6 +7,7 @@ const typing = get(".typing");
 const chatStatus = get(".chatStatus");
 const chatId = window.location.pathname.substr(6);
 let authUser;
+let typingTimer = false;
 
 window.onload = async function () {
     await this.axios
@@ -40,7 +41,6 @@ window.onload = async function () {
                     );
                 })
                 .here((users) => {
-                    // console.log(authUser.id);
                     let result = users.filter((user) => user.id != authUser.id);
 
                     if (result.length > 0)
@@ -57,21 +57,24 @@ window.onload = async function () {
                 .listenForWhisper("typing", (e) => {
                     if (e > 0) {
                         typing.style.display = "";
-                        setTimeout(() => {
+
+                        if (typingTimer) {
+                            clearTimeout(typingTimer);
+                        }
+                        typingTimer = setTimeout(() => {
                             typing.style.display = "none";
+
+                            typingTimer = false;
                         }, 3000);
                     }
                 });
         });
 };
 
-msgerInput.addEventListener("keypress", (e) => {
+msgerInput.addEventListener("keypress", () => {
+    typingTimer = true;
     Echo.join(`chat.${chatId}`).whisper("typing", msgerInput.value.length);
 });
-// function sendTypingEvent() {
-//     console.log();
-//     // Echo.join(`chat.${chatId}`).whisper("typing", msgerInput.value.length);
-// }
 
 msgerForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -119,7 +122,6 @@ function appendMessages(messages) {
 }
 
 function appendMessage(name, img, side, text, date) {
-    //   Simple solution for small apps
     const msgHTML = `
     <div class="msg ${side}-msg">
       <div class="msg-img" style="background-image: url(${img})"></div>
@@ -139,7 +141,6 @@ function appendMessage(name, img, side, text, date) {
     scrollToBottom();
 }
 
-// Utils
 function get(selector, root = document) {
     return root.querySelector(selector);
 }
