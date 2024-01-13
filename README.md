@@ -127,12 +127,6 @@ php artisan websockets:serve
 
 ![db](assets/db.png)
 
-***
-
-| Nota: Actualmente el proyecto se encuentra en proceso de desarrollo, la funcionalidad del chat esta completa, solamente la parte visual en la que un usuario se une a una sala de chat no esta presente, pero la logica y endpoint para realizarlo si esta presente,  gracias por leer la nota. |
-|---|
-
-***
 
 ## Instrucciones para Pruebas
 
@@ -144,12 +138,7 @@ Posteriormente ingresar a http://127.0.0.1:8000/register, es necesario crear dos
 |  ![user](assets/dashboard1.png)|![create](assets/dashboard2.png) | 
 
 
-Si el Usuario 1 desea conversar con el usuario 2, debe de ingresa a: http://127.0.0.1:8000/chat/with/{user} en donde {user} tiene que ser reemplazado con el id del usuario con el que desea platicar en el caso que se presenta actualmente la url quedaria de esta forma:
- ```
- http://127.0.0.1:8000/chat/with/2 
- ```
-
-Vista de Usuario 1 el endpoint que se esta visualizando es http://127.0.0.1:8000/chat/1 
+Al presionar el boton conversar nos abrira el endpoint que se esta visualizando es http://127.0.0.1:8000/chat/1 
 
 
 | ![user1](assets/user1.png) |
