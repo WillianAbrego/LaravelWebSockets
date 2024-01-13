@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,6 +40,7 @@ Route::get('auth/user', function () {
     }
 });
 
+Route::get('dashboard', [ChatController::class, 'index'])->name('dashboard');
 Route::get('chat/{chat}', [ChatController::class, 'show'])->name('chat.show');
 Route::get('chat/with/{user}', [ChatController::class, 'chat_with'])->name('chat.with');
 Route::get('chat/{user}/get_users', [ChatController::class, 'get_users'])->name('chat.get_users');

@@ -65,4 +65,13 @@ class ChatController extends Controller
             'messages' => $messages
         ]);
     }
+
+    public function index()
+    {
+        // Obtener usuarios paginados (por ejemplo, 10 usuarios por página)
+        $users = User::paginate(3);
+
+        // Pasar los usuarios paginados a la vista
+        return view('dashboard', compact('users'));
+    }
 }
