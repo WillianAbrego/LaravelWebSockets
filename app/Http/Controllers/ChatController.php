@@ -69,7 +69,8 @@ class ChatController extends Controller
     public function index()
     {
         // Obtener usuarios paginados (por ejemplo, 3 usuarios por página)
-        $users = User::paginate(3);
+        $user_id = auth()->user()->id;
+        $users = User::where('id', '!=', $user_id)->paginate(3);
 
         // Pasar los usuarios paginados a la vista
         return view('dashboard', compact('users'));
